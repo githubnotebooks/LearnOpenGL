@@ -1,0 +1,16 @@
+target("utils", function()
+	set_kind("static")
+	add_packages("opengl", "glfw3", "assimp", "stb", "glm")
+	add_includedirs("glad/include", { public = true })
+	add_includedirs("inc", { public = true })
+
+	add_files(path.join(os.projectdir(), "src", "utils", "**.c"))
+	add_files(path.join(os.projectdir(), "src", "utils", "**.cpp"))
+	set_targetdir("$(projectdir)/package/bin")
+
+	on_config(function(target)
+		import("scripts.xmake.modules.glad", { rootdir = os.projectdir() })
+		local gl_version = get_config("gl_version")
+		glad.detect_or_download_glad(path.join(os.projectdir(), "src", "utils", "glad"), gl_version)
+	end)
+end)
