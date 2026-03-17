@@ -24,7 +24,7 @@ const unsigned int SCR_HEIGHT = 600;
 float heightScale = 0.1f;
 
 // camera
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+utils::Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 float lastX = (float)SCR_WIDTH / 2.0;
 float lastY = (float)SCR_HEIGHT / 2.0;
 bool firstMouse = true;
@@ -78,22 +78,22 @@ int main()
 
     // build and compile shaders
     // -------------------------
-    Shader shader("5.1.parallax_mapping.vs", "5.1.parallax_mapping.fs");
+    utils::Shader shader("5.1.parallax_mapping.vs", "5.1.parallax_mapping.fs");
 
     // load textures
     // -------------
     unsigned int diffuseMap =
-        loadTexture(FileSystem::getPath("resources/textures/bricks2.jpg").c_str());
+        loadTexture(utils::FileSystem::getPath("resources/textures/bricks2.jpg").c_str());
     unsigned int normalMap =
-        loadTexture(FileSystem::getPath("resources/textures/bricks2_normal.jpg").c_str());
+        loadTexture(utils::FileSystem::getPath("resources/textures/bricks2_normal.jpg").c_str());
     unsigned int heightMap =
-        loadTexture(FileSystem::getPath("resources/textures/bricks2_disp.jpg").c_str());
+        loadTexture(utils::FileSystem::getPath("resources/textures/bricks2_disp.jpg").c_str());
     /* unsigned int diffuseMap =
-     loadTexture(FileSystem::getPath("resources/textures/toy_box_diffuse.png").c_str());
+     loadTexture(utils::FileSystem::getPath("resources/textures/toy_box_diffuse.png").c_str());
      unsigned int normalMap =
-     loadTexture(FileSystem::getPath("resources/textures/toy_box_normal.png").c_str());
+     loadTexture(utils::FileSystem::getPath("resources/textures/toy_box_normal.png").c_str());
      unsigned int heightMap =
-     loadTexture(FileSystem::getPath("resources/textures/toy_box_disp.png").c_str());*/
+     loadTexture(utils::FileSystem::getPath("resources/textures/toy_box_disp.png").c_str());*/
 
     // shader configuration
     // --------------------
@@ -290,13 +290,13 @@ void processInput(GLFWwindow *window)
         glfwSetWindowShouldClose(window, true);
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        camera.ProcessKeyboard(FORWARD, deltaTime);
+        camera.ProcessKeyboard(utils::FORWARD, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        camera.ProcessKeyboard(BACKWARD, deltaTime);
+        camera.ProcessKeyboard(utils::BACKWARD, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        camera.ProcessKeyboard(LEFT, deltaTime);
+        camera.ProcessKeyboard(utils::LEFT, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        camera.ProcessKeyboard(RIGHT, deltaTime);
+        camera.ProcessKeyboard(utils::RIGHT, deltaTime);
 
     if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
     {

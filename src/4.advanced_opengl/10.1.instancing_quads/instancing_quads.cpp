@@ -52,7 +52,7 @@ int main()
 
     // build and compile shaders
     // -------------------------
-    Shader shader("10.1.instancing.vs", "10.1.instancing.fs");
+    utils::Shader shader("10.1.instancing.vs", "10.1.instancing.fs");
 
     // generate a list of 100 quad locations/translation-vectors
     // ---------------------------------------------------------

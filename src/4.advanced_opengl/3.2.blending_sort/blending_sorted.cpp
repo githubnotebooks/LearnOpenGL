@@ -9,7 +9,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <iostream>
+#include <map>
 #include <stb_image.h>
+#include <vector>
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int height);
 void mouse_callback(GLFWwindow *window, double xpos, double ypos);
@@ -22,7 +24,7 @@ const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
 // camera
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+utils::Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 float lastX = (float)SCR_WIDTH / 2.0;
 float lastY = (float)SCR_HEIGHT / 2.0;
 bool firstMouse = true;
@@ -78,7 +80,7 @@ int main()
 
     // build and compile shaders
     // -------------------------
-    Shader shader("3.2.blending.vs", "3.2.blending.fs");
+    utils::Shader shader("3.2.blending.vs", "3.2.blending.fs");
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
@@ -162,15 +164,15 @@ int main()
     // load textures
     // -------------
     unsigned int cubeTexture =
-        loadTexture(FileSystem::getPath("resources/textures/marble.jpg").c_str());
+        loadTexture(utils::FileSystem::getPath("resources/textures/marble.jpg").c_str());
     unsigned int floorTexture =
-        loadTexture(FileSystem::getPath("resources/textures/metal.png").c_str());
+        loadTexture(utils::FileSystem::getPath("resources/textures/metal.png").c_str());
     unsigned int transparentTexture =
-        loadTexture(FileSystem::getPath("resources/textures/window.png").c_str());
+        loadTexture(utils::FileSystem::getPath("resources/textures/window.png").c_str());
 
     // transparent window locations
     // --------------------------------
-    vector<glm::vec3> windows{glm::vec3(-1.5f, 0.0f, -0.48f),
+    std::vector<glm::vec3> windows{glm::vec3(-1.5f, 0.0f, -0.48f),
                               glm::vec3(1.5f, 0.0f, 0.51f), glm::vec3(0.0f, 0.0f, 0.7f),
                               glm::vec3(-0.3f, 0.0f, -2.3f),
                               glm::vec3(0.5f, 0.0f, -0.6f)};
@@ -272,13 +274,13 @@ void processInput(GLFWwindow *window)
         glfwSetWindowShouldClose(window, true);
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        camera.ProcessKeyboard(FORWARD, deltaTime);
+        camera.ProcessKeyboard(utils::FORWARD, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        camera.ProcessKeyboard(BACKWARD, deltaTime);
+        camera.ProcessKeyboard(utils::BACKWARD, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        camera.ProcessKeyboard(LEFT, deltaTime);
+        camera.ProcessKeyboard(utils::LEFT, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        camera.ProcessKeyboard(RIGHT, deltaTime);
+        camera.ProcessKeyboard(utils::RIGHT, deltaTime);
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function

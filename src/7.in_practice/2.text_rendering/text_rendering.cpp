@@ -18,7 +18,7 @@
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int height);
 void processInput(GLFWwindow *window);
-void RenderText(Shader &shader, std::string text, float x, float y, float scale,
+void RenderText(utils::Shader &shader, std::string text, float x, float y, float scale,
                 glm::vec3 color);
 
 // settings
@@ -79,7 +79,7 @@ int main()
 
     // compile and setup the shader
     // ----------------------------
-    Shader shader("text.vs", "text.fs");
+    utils::Shader shader("text.vs", "text.fs");
     glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(SCR_WIDTH), 0.0f,
                                       static_cast<float>(SCR_HEIGHT));
     shader.use();
@@ -97,7 +97,7 @@ int main()
     }
 
     // find path to font
-    std::string font_name = FileSystem::getPath("resources/fonts/Antonio-Bold.ttf");
+    std::string font_name = utils::FileSystem::getPath("resources/fonts/Antonio-Bold.ttf");
     if (font_name.empty())
     {
         std::cout << "ERROR::FREETYPE: Failed to load font_name" << std::endl;
@@ -214,7 +214,7 @@ void framebuffer_size_callback(GLFWwindow *window, int width, int height)
 
 // render line of text
 // -------------------
-void RenderText(Shader &shader, std::string text, float x, float y, float scale,
+void RenderText(utils::Shader &shader, std::string text, float x, float y, float scale,
                 glm::vec3 color)
 {
     // activate corresponding render state

@@ -23,7 +23,7 @@ const unsigned int SCR_WIDTH = 1280;
 const unsigned int SCR_HEIGHT = 720;
 
 // camera
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+utils::Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 float lastX = 800.0f / 2.0;
 float lastY = 600.0 / 2.0;
 bool firstMouse = true;
@@ -78,7 +78,7 @@ int main()
 
     // build and compile shaders
     // -------------------------
-    Shader shader("1.2.pbr.vs", "1.2.pbr.fs");
+    utils::Shader shader("1.2.pbr.vs", "1.2.pbr.fs");
 
     shader.use();
     shader.setInt("albedoMap", 0);
@@ -90,15 +90,15 @@ int main()
     // load PBR material textures
     // --------------------------
     unsigned int albedo = loadTexture(
-        FileSystem::getPath("resources/textures/pbr/rusted_iron/albedo.png").c_str());
+        utils::FileSystem::getPath("resources/textures/pbr/rusted_iron/albedo.png").c_str());
     unsigned int normal = loadTexture(
-        FileSystem::getPath("resources/textures/pbr/rusted_iron/normal.png").c_str());
+        utils::FileSystem::getPath("resources/textures/pbr/rusted_iron/normal.png").c_str());
     unsigned int metallic = loadTexture(
-        FileSystem::getPath("resources/textures/pbr/rusted_iron/metallic.png").c_str());
+        utils::FileSystem::getPath("resources/textures/pbr/rusted_iron/metallic.png").c_str());
     unsigned int roughness = loadTexture(
-        FileSystem::getPath("resources/textures/pbr/rusted_iron/roughness.png").c_str());
+        utils::FileSystem::getPath("resources/textures/pbr/rusted_iron/roughness.png").c_str());
     unsigned int ao = loadTexture(
-        FileSystem::getPath("resources/textures/pbr/rusted_iron/ao.png").c_str());
+        utils::FileSystem::getPath("resources/textures/pbr/rusted_iron/ao.png").c_str());
 
     // lights
     // ------
@@ -214,13 +214,13 @@ void processInput(GLFWwindow *window)
         glfwSetWindowShouldClose(window, true);
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        camera.ProcessKeyboard(FORWARD, deltaTime);
+        camera.ProcessKeyboard(utils::FORWARD, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        camera.ProcessKeyboard(BACKWARD, deltaTime);
+        camera.ProcessKeyboard(utils::BACKWARD, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        camera.ProcessKeyboard(LEFT, deltaTime);
+        camera.ProcessKeyboard(utils::LEFT, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        camera.ProcessKeyboard(RIGHT, deltaTime);
+        camera.ProcessKeyboard(utils::RIGHT, deltaTime);
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function

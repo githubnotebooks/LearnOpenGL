@@ -16,7 +16,7 @@ void mouse_callback(GLFWwindow *window, double xpos, double ypos);
 void scroll_callback(GLFWwindow *window, double xoffset, double yoffset);
 void processInput(GLFWwindow *window);
 unsigned int loadTexture(const char *path);
-void renderScene(const Shader &shader);
+void renderScene(const utils::Shader &shader);
 void renderCube();
 
 // settings
@@ -26,7 +26,7 @@ bool shadows = true;
 bool shadowsKeyPressed = false;
 
 // camera
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+utils::Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 float lastX = (float)SCR_WIDTH / 2.0;
 float lastY = (float)SCR_HEIGHT / 2.0;
 bool firstMouse = true;
@@ -81,15 +81,15 @@ int main()
 
     // build and compile shaders
     // -------------------------
-    Shader shader("3.2.1.point_shadows.vs", "3.2.1.point_shadows.fs");
-    Shader simpleDepthShader("3.2.1.point_shadows_depth.vs",
+    utils::Shader shader("3.2.1.point_shadows.vs", "3.2.1.point_shadows.fs");
+    utils::Shader simpleDepthShader("3.2.1.point_shadows_depth.vs",
                              "3.2.1.point_shadows_depth.fs",
                              "3.2.1.point_shadows_depth.gs");
 
     // load textures
     // -------------
     unsigned int woodTexture =
-        loadTexture(FileSystem::getPath("resources/textures/wood.png").c_str());
+        loadTexture(utils::FileSystem::getPath("resources/textures/wood.png").c_str());
 
     // configure depth map FBO
     // -----------------------
@@ -222,7 +222,7 @@ int main()
 
 // renders the 3D scene
 // --------------------
-void renderScene(const Shader &shader)
+void renderScene(const utils::Shader &shader)
 {
     // room cube
     glm::mat4 model = glm::mat4(1.0f);
@@ -353,13 +353,13 @@ void processInput(GLFWwindow *window)
         glfwSetWindowShouldClose(window, true);
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        camera.ProcessKeyboard(FORWARD, deltaTime);
+        camera.ProcessKeyboard(utils::FORWARD, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        camera.ProcessKeyboard(BACKWARD, deltaTime);
+        camera.ProcessKeyboard(utils::BACKWARD, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        camera.ProcessKeyboard(LEFT, deltaTime);
+        camera.ProcessKeyboard(utils::LEFT, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        camera.ProcessKeyboard(RIGHT, deltaTime);
+        camera.ProcessKeyboard(utils::RIGHT, deltaTime);
 
     if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS && !shadowsKeyPressed)
     {

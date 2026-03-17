@@ -1,4 +1,4 @@
-target("4.1", function()
+target("2.4.1", function()
 	set_kind("binary")
 	add_packages("opengl", "glfw", "assimp", "stb")
 	add_deps("utils")

@@ -1,6 +1,8 @@
+depend_freetype()
+
 target("7.2", function()
 	set_kind("binary")
-	add_packages("opengl", "glfw", "assimp", "stb")
+	add_packages("opengl", "glfw", "assimp", "stb", "freetype")
 	add_deps("utils")
 
 	set_targetdir("$(projectdir)/package/bin")

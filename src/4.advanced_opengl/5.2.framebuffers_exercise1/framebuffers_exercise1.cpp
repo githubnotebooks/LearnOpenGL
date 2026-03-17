@@ -22,7 +22,7 @@ const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
 // camera
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+utils::Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 float lastX = (float)SCR_WIDTH / 2.0;
 float lastY = (float)SCR_HEIGHT / 2.0;
 bool firstMouse = true;
@@ -76,8 +76,8 @@ int main()
 
     // build and compile shaders
     // -------------------------
-    Shader shader("5.2.framebuffers.vs", "5.2.framebuffers.fs");
-    Shader screenShader("5.2.framebuffers_screen.vs", "5.2.framebuffers_screen.fs");
+    utils::Shader shader("5.2.framebuffers.vs", "5.2.framebuffers.fs");
+    utils::Shader screenShader("5.2.framebuffers_screen.vs", "5.2.framebuffers_screen.fs");
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
@@ -160,9 +160,9 @@ int main()
     // load textures
     // -------------
     unsigned int cubeTexture =
-        loadTexture(FileSystem::getPath("resources/textures/container.jpg").c_str());
+        loadTexture(utils::FileSystem::getPath("resources/textures/container.jpg").c_str());
     unsigned int floorTexture =
-        loadTexture(FileSystem::getPath("resources/textures/metal.png").c_str());
+        loadTexture(utils::FileSystem::getPath("resources/textures/metal.png").c_str());
 
     // shader configuration
     // --------------------
@@ -201,7 +201,7 @@ int main()
               // now that we actually created the framebuffer and added all attachments we
               // want to check if it is actually complete now
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-        cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << endl;
+        std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
     // draw as wireframe
@@ -338,13 +338,13 @@ void processInput(GLFWwindow *window)
         glfwSetWindowShouldClose(window, true);
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        camera.ProcessKeyboard(FORWARD, deltaTime);
+        camera.ProcessKeyboard(utils::FORWARD, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        camera.ProcessKeyboard(BACKWARD, deltaTime);
+        camera.ProcessKeyboard(utils::BACKWARD, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        camera.ProcessKeyboard(LEFT, deltaTime);
+        camera.ProcessKeyboard(utils::LEFT, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        camera.ProcessKeyboard(RIGHT, deltaTime);
+        camera.ProcessKeyboard(utils::RIGHT, deltaTime);
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function

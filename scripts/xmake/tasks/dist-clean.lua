@@ -1,15 +1,17 @@
 task("dist-clean", function()
     set_category("action")
-    set_menu {
+    set_menu({
         usage = "xmake dist-clean",
         description = "Remove intermediate build directories and cache files using custom rm tool.",
         options = {},
-    }
+    })
     on_run(function()
         local targets = {
             ".xmake",
             ".cache",
-            "build"
+            "build",
+            "package/bin/*",
+            "package/shaders/*",
         }
         local rm = nil
         if os.getenv("OS") and os.getenv("OS"):find("Windows") then

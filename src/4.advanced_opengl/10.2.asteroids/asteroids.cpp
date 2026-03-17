@@ -21,7 +21,7 @@ const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
 // camera
-Camera camera(glm::vec3(0.0f, 0.0f, 55.0f));
+utils::Camera camera(glm::vec3(0.0f, 0.0f, 55.0f));
 float lastX = (float)SCR_WIDTH / 2.0;
 float lastY = (float)SCR_HEIGHT / 2.0;
 bool firstMouse = true;
@@ -75,12 +75,12 @@ int main()
 
     // build and compile shaders
     // -------------------------
-    Shader shader("10.2.instancing.vs", "10.2.instancing.fs");
+    utils::Shader shader("10.2.instancing.vs", "10.2.instancing.fs");
 
     // load models
     // -----------
-    Model rock(FileSystem::getPath("resources/objects/rock/rock.obj"));
-    Model planet(FileSystem::getPath("resources/objects/planet/planet.obj"));
+    utils::Model rock(utils::FileSystem::getPath("resources/objects/rock/rock.obj"));
+    utils::Model planet(utils::FileSystem::getPath("resources/objects/planet/planet.obj"));
 
     // generate a large list of semi-random model transformation matrices
     // ------------------------------------------------------------------
@@ -179,13 +179,13 @@ void processInput(GLFWwindow *window)
         glfwSetWindowShouldClose(window, true);
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        camera.ProcessKeyboard(FORWARD, deltaTime);
+        camera.ProcessKeyboard(utils::FORWARD, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        camera.ProcessKeyboard(BACKWARD, deltaTime);
+        camera.ProcessKeyboard(utils::BACKWARD, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        camera.ProcessKeyboard(LEFT, deltaTime);
+        camera.ProcessKeyboard(utils::LEFT, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        camera.ProcessKeyboard(RIGHT, deltaTime);
+        camera.ProcessKeyboard(utils::RIGHT, deltaTime);
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function

@@ -25,7 +25,7 @@ const unsigned int SCR_WIDTH = 1280;
 const unsigned int SCR_HEIGHT = 720;
 
 // camera
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+utils::Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 float lastX = 800.0f / 2.0;
 float lastY = 600.0 / 2.0;
 bool firstMouse = true;
@@ -84,13 +84,13 @@ int main()
 
     // build and compile shaders
     // -------------------------
-    Shader pbrShader("2.2.2.pbr.vs", "2.2.2.pbr.fs");
-    Shader equirectangularToCubemapShader("2.2.2.cubemap.vs",
+    utils::Shader pbrShader("2.2.2.pbr.vs", "2.2.2.pbr.fs");
+    utils::Shader equirectangularToCubemapShader("2.2.2.cubemap.vs",
                                           "2.2.2.equirectangular_to_cubemap.fs");
-    Shader irradianceShader("2.2.2.cubemap.vs", "2.2.2.irradiance_convolution.fs");
-    Shader prefilterShader("2.2.2.cubemap.vs", "2.2.2.prefilter.fs");
-    Shader brdfShader("2.2.2.brdf.vs", "2.2.2.brdf.fs");
-    Shader backgroundShader("2.2.2.background.vs", "2.2.2.background.fs");
+    utils::Shader irradianceShader("2.2.2.cubemap.vs", "2.2.2.irradiance_convolution.fs");
+    utils::Shader prefilterShader("2.2.2.cubemap.vs", "2.2.2.prefilter.fs");
+    utils::Shader brdfShader("2.2.2.brdf.vs", "2.2.2.brdf.fs");
+    utils::Shader backgroundShader("2.2.2.background.vs", "2.2.2.background.fs");
 
     pbrShader.use();
     pbrShader.setInt("irradianceMap", 0);
@@ -109,63 +109,63 @@ int main()
     // --------------------------
     // rusted iron
     unsigned int ironAlbedoMap = loadTexture(
-        FileSystem::getPath("resources/textures/pbr/rusted_iron/albedo.png").c_str());
+        utils::FileSystem::getPath("resources/textures/pbr/rusted_iron/albedo.png").c_str());
     unsigned int ironNormalMap = loadTexture(
-        FileSystem::getPath("resources/textures/pbr/rusted_iron/normal.png").c_str());
+        utils::FileSystem::getPath("resources/textures/pbr/rusted_iron/normal.png").c_str());
     unsigned int ironMetallicMap = loadTexture(
-        FileSystem::getPath("resources/textures/pbr/rusted_iron/metallic.png").c_str());
+        utils::FileSystem::getPath("resources/textures/pbr/rusted_iron/metallic.png").c_str());
     unsigned int ironRoughnessMap = loadTexture(
-        FileSystem::getPath("resources/textures/pbr/rusted_iron/roughness.png").c_str());
+        utils::FileSystem::getPath("resources/textures/pbr/rusted_iron/roughness.png").c_str());
     unsigned int ironAOMap = loadTexture(
-        FileSystem::getPath("resources/textures/pbr/rusted_iron/ao.png").c_str());
+        utils::FileSystem::getPath("resources/textures/pbr/rusted_iron/ao.png").c_str());
 
     // gold
     unsigned int goldAlbedoMap = loadTexture(
-        FileSystem::getPath("resources/textures/pbr/gold/albedo.png").c_str());
+        utils::FileSystem::getPath("resources/textures/pbr/gold/albedo.png").c_str());
     unsigned int goldNormalMap = loadTexture(
-        FileSystem::getPath("resources/textures/pbr/gold/normal.png").c_str());
+        utils::FileSystem::getPath("resources/textures/pbr/gold/normal.png").c_str());
     unsigned int goldMetallicMap = loadTexture(
-        FileSystem::getPath("resources/textures/pbr/gold/metallic.png").c_str());
+        utils::FileSystem::getPath("resources/textures/pbr/gold/metallic.png").c_str());
     unsigned int goldRoughnessMap = loadTexture(
-        FileSystem::getPath("resources/textures/pbr/gold/roughness.png").c_str());
+        utils::FileSystem::getPath("resources/textures/pbr/gold/roughness.png").c_str());
     unsigned int goldAOMap =
-        loadTexture(FileSystem::getPath("resources/textures/pbr/gold/ao.png").c_str());
+        loadTexture(utils::FileSystem::getPath("resources/textures/pbr/gold/ao.png").c_str());
 
     // grass
     unsigned int grassAlbedoMap = loadTexture(
-        FileSystem::getPath("resources/textures/pbr/grass/albedo.png").c_str());
+        utils::FileSystem::getPath("resources/textures/pbr/grass/albedo.png").c_str());
     unsigned int grassNormalMap = loadTexture(
-        FileSystem::getPath("resources/textures/pbr/grass/normal.png").c_str());
+        utils::FileSystem::getPath("resources/textures/pbr/grass/normal.png").c_str());
     unsigned int grassMetallicMap = loadTexture(
-        FileSystem::getPath("resources/textures/pbr/grass/metallic.png").c_str());
+        utils::FileSystem::getPath("resources/textures/pbr/grass/metallic.png").c_str());
     unsigned int grassRoughnessMap = loadTexture(
-        FileSystem::getPath("resources/textures/pbr/grass/roughness.png").c_str());
+        utils::FileSystem::getPath("resources/textures/pbr/grass/roughness.png").c_str());
     unsigned int grassAOMap =
-        loadTexture(FileSystem::getPath("resources/textures/pbr/grass/ao.png").c_str());
+        loadTexture(utils::FileSystem::getPath("resources/textures/pbr/grass/ao.png").c_str());
 
     // plastic
     unsigned int plasticAlbedoMap = loadTexture(
-        FileSystem::getPath("resources/textures/pbr/plastic/albedo.png").c_str());
+        utils::FileSystem::getPath("resources/textures/pbr/plastic/albedo.png").c_str());
     unsigned int plasticNormalMap = loadTexture(
-        FileSystem::getPath("resources/textures/pbr/plastic/normal.png").c_str());
+        utils::FileSystem::getPath("resources/textures/pbr/plastic/normal.png").c_str());
     unsigned int plasticMetallicMap = loadTexture(
-        FileSystem::getPath("resources/textures/pbr/plastic/metallic.png").c_str());
+        utils::FileSystem::getPath("resources/textures/pbr/plastic/metallic.png").c_str());
     unsigned int plasticRoughnessMap = loadTexture(
-        FileSystem::getPath("resources/textures/pbr/plastic/roughness.png").c_str());
+        utils::FileSystem::getPath("resources/textures/pbr/plastic/roughness.png").c_str());
     unsigned int plasticAOMap =
-        loadTexture(FileSystem::getPath("resources/textures/pbr/plastic/ao.png").c_str());
+        loadTexture(utils::FileSystem::getPath("resources/textures/pbr/plastic/ao.png").c_str());
 
     // wall
     unsigned int wallAlbedoMap = loadTexture(
-        FileSystem::getPath("resources/textures/pbr/wall/albedo.png").c_str());
+        utils::FileSystem::getPath("resources/textures/pbr/wall/albedo.png").c_str());
     unsigned int wallNormalMap = loadTexture(
-        FileSystem::getPath("resources/textures/pbr/wall/normal.png").c_str());
+        utils::FileSystem::getPath("resources/textures/pbr/wall/normal.png").c_str());
     unsigned int wallMetallicMap = loadTexture(
-        FileSystem::getPath("resources/textures/pbr/wall/metallic.png").c_str());
+        utils::FileSystem::getPath("resources/textures/pbr/wall/metallic.png").c_str());
     unsigned int wallRoughnessMap = loadTexture(
-        FileSystem::getPath("resources/textures/pbr/wall/roughness.png").c_str());
+        utils::FileSystem::getPath("resources/textures/pbr/wall/roughness.png").c_str());
     unsigned int wallAOMap =
-        loadTexture(FileSystem::getPath("resources/textures/pbr/wall/ao.png").c_str());
+        loadTexture(utils::FileSystem::getPath("resources/textures/pbr/wall/ao.png").c_str());
 
     // lights
     // ------
@@ -197,7 +197,7 @@ int main()
     stbi_set_flip_vertically_on_load(true);
     int width, height, nrComponents;
     float *data =
-        stbi_loadf(FileSystem::getPath("resources/textures/hdr/newport_loft.hdr").c_str(),
+        stbi_loadf(utils::FileSystem::getPath("resources/textures/hdr/newport_loft.hdr").c_str(),
                    &width, &height, &nrComponents, 0);
     unsigned int hdrTexture;
     if (data)
@@ -605,13 +605,13 @@ void processInput(GLFWwindow *window)
         glfwSetWindowShouldClose(window, true);
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        camera.ProcessKeyboard(FORWARD, deltaTime);
+        camera.ProcessKeyboard(utils::FORWARD, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        camera.ProcessKeyboard(BACKWARD, deltaTime);
+        camera.ProcessKeyboard(utils::BACKWARD, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        camera.ProcessKeyboard(LEFT, deltaTime);
+        camera.ProcessKeyboard(utils::LEFT, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        camera.ProcessKeyboard(RIGHT, deltaTime);
+        camera.ProcessKeyboard(utils::RIGHT, deltaTime);
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function

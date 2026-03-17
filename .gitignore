@@ -6,4 +6,5 @@ out/
 .xmake
 .cache
 shaders
-
+.claude
+CLAUDE.md

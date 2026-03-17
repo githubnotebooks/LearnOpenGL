@@ -195,7 +195,7 @@ int main()
     glEnable(GL_CULL_FACE);
 
     // OpenGL initial state
-    Shader shader("debugging.vs", "debugging.fs");
+    utils::Shader shader("debugging.vs", "debugging.fs");
 
     // configure 3D cube
     unsigned int cubeVAO, cubeVBO;
@@ -264,7 +264,7 @@ int main()
     glBindTexture(GL_TEXTURE_2D, texture);
     int width, height, nrComponents;
     unsigned char *data =
-        stbi_load(FileSystem::getPath("resources/textures/wood.png").c_str(), &width,
+        stbi_load(utils::FileSystem::getPath("resources/textures/wood.png").c_str(), &width,
                   &height, &nrComponents, 0);
     if (data)
     {

@@ -24,7 +24,7 @@ const unsigned int SCR_WIDTH = 1280;
 const unsigned int SCR_HEIGHT = 720;
 
 // camera
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+utils::Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 float lastX = 800.0f / 2.0;
 float lastY = 600.0 / 2.0;
 bool firstMouse = true;
@@ -83,13 +83,13 @@ int main()
 
     // build and compile shaders
     // -------------------------
-    Shader pbrShader("2.2.1.pbr.vs", "2.2.1.pbr.fs");
-    Shader equirectangularToCubemapShader("2.2.1.cubemap.vs",
+    utils::Shader pbrShader("2.2.1.pbr.vs", "2.2.1.pbr.fs");
+    utils::Shader equirectangularToCubemapShader("2.2.1.cubemap.vs",
                                           "2.2.1.equirectangular_to_cubemap.fs");
-    Shader irradianceShader("2.2.1.cubemap.vs", "2.2.1.irradiance_convolution.fs");
-    Shader prefilterShader("2.2.1.cubemap.vs", "2.2.1.prefilter.fs");
-    Shader brdfShader("2.2.1.brdf.vs", "2.2.1.brdf.fs");
-    Shader backgroundShader("2.2.1.background.vs", "2.2.1.background.fs");
+    utils::Shader irradianceShader("2.2.1.cubemap.vs", "2.2.1.irradiance_convolution.fs");
+    utils::Shader prefilterShader("2.2.1.cubemap.vs", "2.2.1.prefilter.fs");
+    utils::Shader brdfShader("2.2.1.brdf.vs", "2.2.1.brdf.fs");
+    utils::Shader backgroundShader("2.2.1.background.vs", "2.2.1.background.fs");
 
     pbrShader.use();
     pbrShader.setInt("irradianceMap", 0);
@@ -134,7 +134,7 @@ int main()
     stbi_set_flip_vertically_on_load(true);
     int width, height, nrComponents;
     float *data =
-        stbi_loadf(FileSystem::getPath("resources/textures/hdr/newport_loft.hdr").c_str(),
+        stbi_loadf(utils::FileSystem::getPath("resources/textures/hdr/newport_loft.hdr").c_str(),
                    &width, &height, &nrComponents, 0);
     unsigned int hdrTexture;
     if (data)
@@ -474,13 +474,13 @@ void processInput(GLFWwindow *window)
         glfwSetWindowShouldClose(window, true);
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        camera.ProcessKeyboard(FORWARD, deltaTime);
+        camera.ProcessKeyboard(utils::FORWARD, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        camera.ProcessKeyboard(BACKWARD, deltaTime);
+        camera.ProcessKeyboard(utils::BACKWARD, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        camera.ProcessKeyboard(LEFT, deltaTime);
+        camera.ProcessKeyboard(utils::LEFT, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        camera.ProcessKeyboard(RIGHT, deltaTime);
+        camera.ProcessKeyboard(utils::RIGHT, deltaTime);
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function

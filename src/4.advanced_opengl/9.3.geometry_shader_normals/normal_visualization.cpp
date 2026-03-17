@@ -21,7 +21,7 @@ const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
 // camera
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+utils::Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 float lastX = (float)SCR_WIDTH / 2.0;
 float lastY = (float)SCR_HEIGHT / 2.0;
 bool firstMouse = true;
@@ -75,14 +75,14 @@ int main()
 
     // build and compile shaders
     // -------------------------
-    Shader shader("9.3.default.vs", "9.3.default.fs");
-    Shader normalShader("9.3.normal_visualization.vs", "9.3.normal_visualization.fs",
+    utils::Shader shader("9.3.default.vs", "9.3.default.fs");
+    utils::Shader normalShader("9.3.normal_visualization.vs", "9.3.normal_visualization.fs",
                         "9.3.normal_visualization.gs");
 
     // load models
     // -----------
     stbi_set_flip_vertically_on_load(true);
-    Model backpack(FileSystem::getPath("resources/objects/backpack/backpack.obj"));
+    utils::Model backpack(utils::FileSystem::getPath("resources/objects/backpack/backpack.obj"));
 
     // render loop
     // -----------
@@ -144,13 +144,13 @@ void processInput(GLFWwindow *window)
         glfwSetWindowShouldClose(window, true);
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        camera.ProcessKeyboard(FORWARD, deltaTime);
+        camera.ProcessKeyboard(utils::FORWARD, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        camera.ProcessKeyboard(BACKWARD, deltaTime);
+        camera.ProcessKeyboard(utils::BACKWARD, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        camera.ProcessKeyboard(LEFT, deltaTime);
+        camera.ProcessKeyboard(utils::LEFT, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        camera.ProcessKeyboard(RIGHT, deltaTime);
+        camera.ProcessKeyboard(utils::RIGHT, deltaTime);
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function

@@ -10,20 +10,22 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <iostream>
 #include <stb_image.h>
+#include <string>
+#include <vector>
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int height);
 void mouse_callback(GLFWwindow *window, double xpos, double ypos);
 void scroll_callback(GLFWwindow *window, double xoffset, double yoffset);
 void processInput(GLFWwindow *window);
 unsigned int loadTexture(const char *path);
-unsigned int loadCubemap(vector<std::string> faces);
+unsigned int loadCubemap(std::vector<std::string> faces);
 
 // settings
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
 // camera
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+utils::Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 float lastX = (float)SCR_WIDTH / 2.0;
 float lastY = (float)SCR_HEIGHT / 2.0;
 bool firstMouse = true;
@@ -77,8 +79,8 @@ int main()
 
     // build and compile shaders
     // -------------------------
-    Shader shader("6.1.cubemaps.vs", "6.1.cubemaps.fs");
-    Shader skyboxShader("6.1.skybox.vs", "6.1.skybox.fs");
+    utils::Shader shader("6.1.cubemaps.vs", "6.1.cubemaps.fs");
+    utils::Shader skyboxShader("6.1.skybox.vs", "6.1.skybox.fs");
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
@@ -153,14 +155,14 @@ int main()
     // load textures
     // -------------
     unsigned int cubeTexture =
-        loadTexture(FileSystem::getPath("resources/textures/container.jpg").c_str());
+        loadTexture(utils::FileSystem::getPath("resources/textures/container.jpg").c_str());
 
-    vector<std::string> faces{FileSystem::getPath("resources/textures/skybox/right.jpg"),
-                              FileSystem::getPath("resources/textures/skybox/left.jpg"),
-                              FileSystem::getPath("resources/textures/skybox/top.jpg"),
-                              FileSystem::getPath("resources/textures/skybox/bottom.jpg"),
-                              FileSystem::getPath("resources/textures/skybox/front.jpg"),
-                              FileSystem::getPath("resources/textures/skybox/back.jpg")};
+    std::vector<std::string> faces{utils::FileSystem::getPath("resources/textures/skybox/right.jpg"),
+                              utils::FileSystem::getPath("resources/textures/skybox/left.jpg"),
+                              utils::FileSystem::getPath("resources/textures/skybox/top.jpg"),
+                              utils::FileSystem::getPath("resources/textures/skybox/bottom.jpg"),
+                              utils::FileSystem::getPath("resources/textures/skybox/front.jpg"),
+                              utils::FileSystem::getPath("resources/textures/skybox/back.jpg")};
     unsigned int cubemapTexture = loadCubemap(faces);
 
     // shader configuration
@@ -249,13 +251,13 @@ void processInput(GLFWwindow *window)
         glfwSetWindowShouldClose(window, true);
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        camera.ProcessKeyboard(FORWARD, deltaTime);
+        camera.ProcessKeyboard(utils::FORWARD, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        camera.ProcessKeyboard(BACKWARD, deltaTime);
+        camera.ProcessKeyboard(utils::BACKWARD, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        camera.ProcessKeyboard(LEFT, deltaTime);
+        camera.ProcessKeyboard(utils::LEFT, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        camera.ProcessKeyboard(RIGHT, deltaTime);
+        camera.ProcessKeyboard(utils::RIGHT, deltaTime);
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function
@@ -346,7 +348,7 @@ unsigned int loadTexture(char const *path)
 // +Z (front)
 // -Z (back)
 // -------------------------------------------------------
-unsigned int loadCubemap(vector<std::string> faces)
+unsigned int loadCubemap(std::vector<std::string> faces)
 {
     unsigned int textureID;
     glGenTextures(1, &textureID);

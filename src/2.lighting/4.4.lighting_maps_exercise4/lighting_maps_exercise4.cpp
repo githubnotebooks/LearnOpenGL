@@ -78,8 +78,8 @@ int main()
 
     // build and compile our shader zprogram
     // ------------------------------------
-    Shader lightingShader("4.4.lighting_maps.vs", "4.4.lighting_maps.fs");
-    Shader lightCubeShader("4.4.light_cube.vs", "4.4.light_cube.fs");
+    utils::Shader lightingShader("4.4.lighting_maps.vs", "4.4.lighting_maps.fs");
+    utils::Shader lightCubeShader("4.4.light_cube.vs", "4.4.light_cube.fs");
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
@@ -153,11 +153,11 @@ int main()
     // load textures (we now use a utility function to keep the code more organized)
     // -----------------------------------------------------------------------------
     unsigned int diffuseMap =
-        loadTexture(FileSystem::getPath("resources/textures/container2.png").c_str());
+        loadTexture(utils::FileSystem::getPath("resources/textures/container2.png").c_str());
     unsigned int specularMap = loadTexture(
-        FileSystem::getPath("resources/textures/container2_specular.png").c_str());
+        utils::FileSystem::getPath("resources/textures/container2_specular.png").c_str());
     unsigned int emissionMap =
-        loadTexture(FileSystem::getPath("resources/textures/matrix.jpg").c_str());
+        loadTexture(utils::FileSystem::getPath("resources/textures/matrix.jpg").c_str());
 
     // shader configuration
     // --------------------
@@ -263,13 +263,13 @@ void processInput(GLFWwindow *window)
         glfwSetWindowShouldClose(window, true);
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        camera.ProcessKeyboard(FORWARD, deltaTime);
+        camera.ProcessKeyboard(utils::FORWARD, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        camera.ProcessKeyboard(BACKWARD, deltaTime);
+        camera.ProcessKeyboard(utils::BACKWARD, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        camera.ProcessKeyboard(LEFT, deltaTime);
+        camera.ProcessKeyboard(utils::LEFT, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        camera.ProcessKeyboard(RIGHT, deltaTime);
+        camera.ProcessKeyboard(utils::RIGHT, deltaTime);
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function

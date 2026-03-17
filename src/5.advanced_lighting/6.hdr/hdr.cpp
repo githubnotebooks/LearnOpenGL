@@ -27,7 +27,7 @@ bool hdrKeyPressed = false;
 float exposure = 1.0f;
 
 // camera
-Camera camera(glm::vec3(0.0f, 0.0f, 5.0f));
+utils::Camera camera(glm::vec3(0.0f, 0.0f, 5.0f));
 float lastX = (float)SCR_WIDTH / 2.0;
 float lastY = (float)SCR_HEIGHT / 2.0;
 bool firstMouse = true;
@@ -81,13 +81,13 @@ int main()
 
     // build and compile shaders
     // -------------------------
-    Shader shader("6.lighting.vs", "6.lighting.fs");
-    Shader hdrShader("6.hdr.vs", "6.hdr.fs");
+    utils::Shader shader("6.lighting.vs", "6.lighting.fs");
+    utils::Shader hdrShader("6.hdr.vs", "6.hdr.fs");
 
     // load textures
     // -------------
     unsigned int woodTexture =
-        loadTexture(FileSystem::getPath("resources/textures/wood.png").c_str(),
+        loadTexture(utils::FileSystem::getPath("resources/textures/wood.png").c_str(),
                     true); // note that we're loading the texture as an SRGB texture
 
     // configure floating point framebuffer
@@ -329,13 +329,13 @@ void processInput(GLFWwindow *window)
         glfwSetWindowShouldClose(window, true);
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        camera.ProcessKeyboard(FORWARD, deltaTime);
+        camera.ProcessKeyboard(utils::FORWARD, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        camera.ProcessKeyboard(BACKWARD, deltaTime);
+        camera.ProcessKeyboard(utils::BACKWARD, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        camera.ProcessKeyboard(LEFT, deltaTime);
+        camera.ProcessKeyboard(utils::LEFT, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        camera.ProcessKeyboard(RIGHT, deltaTime);
+        camera.ProcessKeyboard(utils::RIGHT, deltaTime);
 
     if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS && !hdrKeyPressed)
     {
