@@ -1,6 +1,6 @@
 target("1.5.1", function()
 	set_kind("binary")
-	add_packages("opengl", "glfw", "assimp", "stb")
+	add_packages("opengl", "glfw", "assimp", "stb", "glm")
 	add_deps("utils")
 
 	set_targetdir("$(projectdir)/package/bin")
